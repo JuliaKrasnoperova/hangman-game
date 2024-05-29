@@ -53,6 +53,10 @@
       @apply mx-2 text-3xl font-medium;
     }
 
+    .question {
+      @apply mx-2 m-10 text-2xl font-medium text-center;
+    }
+
     .keyboard {
       @apply max-w-2xl mt-5 flex justify-center flex-wrap;
     }

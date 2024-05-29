@@ -11,12 +11,11 @@ const createPlaceholdersHTML = () => {
   const word = sessionStorage.getItem("word");
 
   const wordArray = Array.from(word);
-  const placeholdersHTML = wordArray.reduce(
-    (acc, curr, i) => acc + `<h1 id="letter_${i}" class='letter'>_</h1>`,
-    ""
-  );
+  const placeholdersHTML = wordArray.reduce((acc, curr, i) => {
+    return acc + ` <h1 id="letter_${i}" class="letter">_</h1>`;
+  }, "");
 
-  return `<div id="placeholders" class="placeholders-wrapper">${placeholdersHTML}</div>`;
+  gameDiv.innerHTML = `<div id="placeholders" class="placeholders-wrapper">${placeholdersHTML}</div>`;
 };
 
 const createKeyboard = () => {
@@ -112,12 +111,16 @@ export const startGame = () => {
   winCount = 0;
   logoH1.classList.add("logo-sm");
   const randomIndex = Math.floor(Math.random() * WORDS.length);
-  const wordToGuess = WORDS[randomIndex];
+  const wordToGuess = WORDS[randomIndex].answer;
+  const question = document.querySelector(".question");
+
   sessionStorage.setItem("word", wordToGuess);
 
-  gameDiv.innerHTML = createPlaceholdersHTML();
+  question.innerText = `${WORDS[randomIndex].question}`;
 
-  gameDiv.innerHTML += `<p id="tries" class="mt-2">TRIES LEFT: <span id="tries-left" class="font-medium text-red-600">10</span></p>`;
+  createPlaceholdersHTML();
+
+  gameDiv.innerHTML += `<p id="tries" class="mt-2">tries left: <span id="tries-left" class="font-medium text-red-600">10</span></p>`;
 
   const keyboardDiv = createKeyboard();
   keyboardDiv.addEventListener("click", (event) => {
